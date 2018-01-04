@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<title>UIWebView交互js</title>
+		<style type="text/css">
+			body {
+				background: oldlace;
+			}
+			.js_sendToWeb {
+				width: 200px;
+				height: 30px;
+				background: olivedrab;
+				text-align: center;
+				line-height: 30px;
+				font-size: 14px;
+				margin-top: 30px;
+				margin-left: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="js_sendToWeb" onclick="js_makeOriginalFun()">js调用原生 发生返回</div>
+		<div class="js_sendToWeb" onclick="original_makeJSFun()">原生调用js</div>
+		
+		<script type="text/javascript">
+			function js_makeOriginalFun() {
+                alert('123');
+				UIWebJS_Plugin.webReturninfo('返回');
+			}
+			
+			function original_makeJSFun() { // 用于触发原生调用js的方法
+				UIWebJS_Plugin.webReturninfo('原生调用js');
+			}
+			
+			function jsfunction() {
+                var getBody = document.querySelector("body");
+                var newDiv = document.createElement("div");
+                newDiv.innerHTML = '<div class="js_sendToWeb">调用成功，添加新视图成功</div>';
+                getBody.insertBefore(newDiv, document.getElementById("add_item_Div"));
+			}
+		</script>
+	</body>
+</html>

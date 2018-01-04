@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no" />
+		<title>WKWebView交互js</title>
+		<style type="text/css">
+			body {
+				background: oldlace;
+			}
+			.js_sendToWeb {
+				width: 200px;
+				height: 30px;
+				background: olivedrab;
+				text-align: center;
+				line-height: 30px;
+				font-size: 14px;
+				margin-top: 30px;
+				margin-left: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="js_sendToWeb" onclick="js_makeOriginalFun()">js调用原生 发生跳转</div>
+		<div class="js_sendToWeb" onclick="original_makeJSFun()">原生调用js</div>
+		
+		<script type="text/javascript">
+			function js_makeOriginalFun() {
+                window.webkit.messageHandlers.js_WKWebView.postMessage({
+                                                                       title:'js调用原生方法',
+                                                                       info:'写法固定，js_WKWebView 相当于插件名称要与iOS端一致',
+                                                                       state:1
+                                                                       });
+			}
+			
+			function original_makeJSFun() { // 用于触发原生调用js的方法
+                window.webkit.messageHandlers.js_WKWebView.postMessage({
+                                                                       title:'触发原生调用js',
+                                                                       info:'使用js调用原生的方法，触发原生调用js方法(测试)',
+                                                                       state:2
+                                                                       });
+			}
+			
+			function jsfunction() {
+                alert('调用成功');
+			}
+		</script>
+	</body>
+</html>
